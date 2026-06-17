@@ -1,0 +1,555 @@
+/* Core Theme and Variables */
+:root {
+  --neon-cyan: #00f0ff;
+  --neon-blue: #0055ff;
+  --neon-purple: #9900ff;
+  --gold-highlight: #ffeeb8;
+  --gold-mid: #cfac62;
+  --gold-dark: #7d5e20;
+  
+  --glass-bg: rgba(4, 8, 16, 0.55);
+  --glass-border: rgba(0, 240, 255, 0.15);
+  --font-cinzel: 'Cinzel', serif;
+  --font-outfit: 'Outfit', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: var(--font-outfit);
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scrollbar Utility Hides */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* 1. Landing / Enter Gateway Screen */
+.landing-screen-gate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000000;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.landing-content {
+  max-width: 800px;
+  width: 100%;
+}
+
+/* Premium Cinematic Shimmering Gold Title */
+.cinematic-gold-title {
+  font-family: var(--font-cinzel);
+  font-weight: 900;
+  font-size: 5rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  background: linear-gradient(
+    to bottom,
+    var(--gold-highlight) 0%,
+    var(--gold-mid) 35%,
+    var(--gold-dark) 60%,
+    var(--gold-mid) 85%,
+    var(--gold-highlight) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: 
+    drop-shadow(0 0 10px rgba(255, 238, 184, 0.15)) 
+    drop-shadow(0 0 35px rgba(207, 172, 98, 0.25));
+  animation: metallic-shimmer 12s ease-in-out infinite;
+}
+
+@keyframes metallic-shimmer {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.cinematic-subtitle {
+  font-family: var(--font-outfit);
+  font-weight: 200;
+  font-size: 1.05rem;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 1.5rem;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
+}
+
+.headphones-tip {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+
+.enter-btn {
+  background: transparent;
+  border: 1px solid var(--gold-mid);
+  color: var(--gold-highlight);
+  font-family: var(--font-outfit);
+  font-size: 0.9rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  padding: 1.1rem 3.5rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  border-radius: 4px;
+  box-shadow: 0 0 15px rgba(207, 172, 98, 0.15);
+}
+
+.enter-btn:hover {
+  background: var(--gold-mid);
+  color: #000000;
+  box-shadow: 0 0 30px var(--gold-mid);
+}
+
+/* 2. Audio settings HUD (Top Left) */
+.controls-hud {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.control-icon-btn {
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  width: 3.2rem;
+  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.control-icon-btn:hover {
+  border-color: var(--neon-cyan);
+  color: #fff;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.35);
+  transform: scale(1.05);
+}
+
+/* Audio settings dropdown panel card */
+.settings-menu-card {
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  width: 260px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  box-shadow: 
+    0 10px 30px rgba(0,0,0,0.6),
+    0 0 20px rgba(0,240,255,0.08);
+}
+
+.settings-menu-card h3 {
+  font-family: var(--font-cinzel);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 0.4rem;
+  color: var(--neon-cyan);
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 1rem;
+}
+
+.settings-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.settings-slider-container label {
+  color: rgba(255,255,255,0.6);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.volume-slider-input {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.15);
+  outline: none;
+}
+
+.volume-slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--neon-cyan);
+  cursor: pointer;
+  box-shadow: 0 0 8px var(--neon-cyan);
+}
+
+.settings-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.8);
+  cursor: pointer;
+  padding: 0.4rem 0;
+}
+
+.settings-checkbox-container input {
+  accent-color: var(--neon-cyan);
+}
+
+.sfx-indicator {
+  font-size: 0.65rem;
+  color: rgba(255,255,255,0.35);
+  margin-top: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+/* 3. Sliding Holographic Info Panel (Right side) */
+.info-panel-container {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  bottom: 2rem;
+  width: 430px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 1.75rem;
+  z-index: 10;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.7),
+    inset 0 0 20px rgba(0, 240, 255, 0.05),
+    0 0 30px rgba(0, 240, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  color: #ffffff;
+  animation: slide-in 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.info-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.info-panel-header h2 {
+  font-family: var(--font-cinzel);
+  font-weight: 700;
+  font-size: 2.2rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+}
+
+.panel-close-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.panel-close-btn:hover {
+  background: rgba(230, 50, 50, 0.2);
+  border-color: #ff3333;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 50, 50, 0.4);
+}
+
+/* Statistics Grid Layout */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat-card.full-width {
+  grid-column: span 2;
+}
+
+.stat-card label {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.stat-card span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+
+/* Tabs structure */
+.tab-headers {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-family: var(--font-outfit);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  padding: 0.5rem 0.2rem;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+  background: var(--neon-cyan);
+  color: #000000;
+  font-weight: 600;
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* Tab details box */
+.tab-content-box {
+  flex-grow: 1;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-y: auto;
+  min-height: 120px;
+}
+
+.tab-content-box::-webkit-scrollbar {
+  width: 4px;
+}
+.tab-content-box::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.15);
+  border-radius: 2px;
+}
+
+.tab-pane {
+  animation: fadeIn 0.4s ease;
+}
+
+.pane-paragraph {
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.pane-paragraph-dim {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-style: italic;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+.pane-list {
+  list-style: none;
+  font-size: 0.85rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.pane-list li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.pane-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--neon-cyan);
+  font-size: 0.65rem;
+}
+
+.pane-list.list-ordered li::before {
+  content: '▸';
+}
+
+.moons-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.moon-badge {
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  color: var(--neon-cyan);
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.2);
+}
+
+/* 4. Glowing tooltip showing hovered planet */
+.hovered-planet-tooltip {
+  position: fixed;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  padding: 0.6rem 2.2rem;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  z-index: 100;
+  pointer-events: none;
+  box-shadow: 
+    0 5px 25px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+.tooltip-indicator {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.tooltip-name {
+  font-family: var(--font-cinzel);
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  text-shadow: 0 0 10px var(--neon-cyan);
+  text-transform: uppercase;
+}
+
+/* Animations */
+.animate-fade {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(3px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.app-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
