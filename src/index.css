@@ -53,16 +53,16 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  /* Soft vignette that fades to transparent in center so rotating 3D planets are visible */
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.88) 100%);
+  /* Darker vignette in the center with a stronger cinematic out-of-focus backdrop filter */
+  background: radial-gradient(circle at center, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.94) 100%);
   z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 2rem;
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
 }
 
 .landing-content {
