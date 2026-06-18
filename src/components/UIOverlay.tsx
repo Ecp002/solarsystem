@@ -41,7 +41,7 @@ const UIOverlay: React.FC<UIOverlayProps> = ({
       {/* 1. Landing Screen Gateway */}
       {!started && (
         <div className="landing-screen-gate">
-          <div className="landing-content">
+          <div className="landing-content cinematic-fade-in">
             <h1 className="cinematic-gold-title">
               EVENT HORIZON
             </h1>

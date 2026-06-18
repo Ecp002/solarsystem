@@ -53,18 +53,39 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: #000000;
+  /* Soft vignette that fades to transparent in center so rotating 3D planets are visible */
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.88) 100%);
   z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
   padding: 2rem;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
 }
 
 .landing-content {
   max-width: 800px;
   width: 100%;
+}
+
+/* Cinematic blur fade-in entrance transition */
+.cinematic-fade-in {
+  animation: cinematicFade 2.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes cinematicFade {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
 
 /* Premium Cinematic Shimmering Gold Title */
@@ -106,7 +127,7 @@ body {
   letter-spacing: 0.45em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
-  margin-top: 1.5rem;
+  margin-top: 1.8rem;
   text-shadow: 0 0 10px rgba(255, 255, 255, 0.25);
 }
 
@@ -115,8 +136,8 @@ body {
   font-size: 0.75rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin-top: 3rem;
-  margin-bottom: 2rem;
+  margin-top: 3.5rem;
+  margin-bottom: 2.2rem;
 }
 
 .enter-btn {
@@ -128,17 +149,24 @@ body {
   font-weight: 400;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  padding: 1.1rem 3.5rem;
+  padding: 1.15rem 3.8rem;
   cursor: pointer;
-  transition: all 0.4s ease;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   border-radius: 4px;
   box-shadow: 0 0 15px rgba(207, 172, 98, 0.15);
 }
 
 .enter-btn:hover {
-  background: var(--gold-mid);
-  color: #000000;
-  box-shadow: 0 0 30px var(--gold-mid);
+  background: rgba(207, 172, 98, 0.08);
+  border-color: var(--gold-highlight);
+  color: #ffffff;
+  box-shadow: 0 0 35px rgba(207, 172, 98, 0.35);
+  letter-spacing: 0.34em;
+  transform: scale(1.02);
+}
+
+.enter-btn:active {
+  transform: scale(0.98);
 }
 
 /* 2. Audio settings HUD (Top Left) */

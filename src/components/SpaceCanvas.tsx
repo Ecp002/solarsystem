@@ -969,12 +969,14 @@ const PlanetMesh: React.FC<PlanetMeshProps> = ({
 
 // 4. Camera Controller for GSAP flights & tracking
 interface CameraControllerProps {
+  started: boolean;
   selectedPlanet: PlanetData | null;
   planetAngles: React.MutableRefObject<{ [key: string]: React.MutableRefObject<number> }>;
   controlsRef: React.RefObject<any>;
 }
 
 const CameraController: React.FC<CameraControllerProps> = ({
+  started,
   selectedPlanet,
   planetAngles,
   controlsRef
@@ -1059,7 +1061,21 @@ const CameraController: React.FC<CameraControllerProps> = ({
   }, [selectedPlanet, camera, controlsRef]);
 
   // Frame lock to track moving planet
-  useFrame(() => {
+  useFrame((state, delta) => {
+    if (!started) {
+      // Slow majestic panning around the sun for gateway screen
+      const time = state.clock.getElapsedTime();
+      const radius = 60;
+      camera.position.x = Math.cos(time * 0.04) * radius;
+      camera.position.y = 16 + Math.sin(time * 0.02) * 4;
+      camera.position.z = Math.sin(time * 0.04) * radius;
+      camera.lookAt(0, 0, 0);
+      if (controlsRef.current) {
+        controlsRef.current.target.set(0, 0, 0);
+      }
+      return;
+    }
+
     if (isTracking.current && selectedPlanet && controlsRef.current) {
       const angle = planetAngles.current[selectedPlanet.name].current;
       const px = Math.cos(angle) * selectedPlanet.orbitRadius;
@@ -1116,10 +1132,11 @@ const SpaceCanvas: React.FC<SpaceCanvasProps> = ({
         <ambientLight intensity={0.06} />
 
         {/* Core lighting (The Sun light source) */}
-        <pointLight position={[0, 0, 0]} intensity={started ? 5.5 : 0.05} distance={150} decay={1.0} color="#ffebcc" />
+        <pointLight position={[0, 0, 0]} intensity={started ? 5.5 : 2.5} distance={150} decay={1.0} color="#ffebcc" />
 
         {/* Camera flight tracking */}
         <CameraController 
+          started={started}
           selectedPlanet={selectedPlanet} 
           planetAngles={planetAngles} 
           controlsRef={controlsRef} 
